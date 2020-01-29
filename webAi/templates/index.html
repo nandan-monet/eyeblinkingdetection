@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>webcame</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#container{
+			margin: 0px auto;
+			width:500px;
+			height:350px;
+			border:10px #333 solid;
+		}
+		#videocapture{
+			width:500px;
+			height:350px;
+			background-color: #666;
+
+		}
+	</style>
+	
+</head>
+<body bgcolor="skyblue">
+	<div id="container">
+			<video autoplay="true" id="videocapture"></video>
+	</div>
+	
+<script type="text/javascript">
+	var video=document.querySelector("#videocapture");
+	navigator.getUserMedia=navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia  || navigator.msGetUserMedia || navigator.oGetUserMedia
+	if(navigator.getUserMedia){
+		navigator.getUserMedia({video:true},handleVideo,videoError)
+	}
+   function handleVideo(stream){
+   	 // srcsd = window.URL.createObjectURL(stream);
+   	 // console.log(srcsd);
+   	 	video.srcObject=stream;
+   	 	var stream_video=video.srcObject
+   	 	console.log(stream_video)
+   	 	// video.src =window.URL.createObjectURL(stream_video)
+   	 	// console.log(video.src)
+   	 	console.log(typeof(video.src))
+		video.play();      
+   }
+   function videoError(e){
+
+   }
+
+
+
+
+</script>
+</body>
+</html>

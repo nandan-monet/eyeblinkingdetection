@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>eye tracking</title>
+  <style type="text/css">
+    html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+p {
+    margin: 0;
+    font-size: 12px;
+}
+
+canvas {
+    border: 1px solid black;
+}
+
+.holder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+}
+
+.holder:before {
+    content: attr(data-title);
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    visibility: visible;
+}
+
+.holder:after {
+    content: 'click to activate';
+    position: absolute;
+    top: 55%;
+    left: 0;
+    width: 100%;
+    visibility: visible;
+}
+
+#content {
+    text-align: center;
+    visibility: hidden;
+}
+
+body.active .holder:before,
+body.active .holder:after {
+    visibility: hidden;
+}
+
+body.active #content {
+    visibility: visible;
+}
+  </style>
+</head>
+<body>
+  <div class="holder" data-title="Request Webcam">
+    <div id="content"></div>
+</div>
+
+
+
+<script type="text/javascript">
+  var content, webcam;
+
+function init() {
+    content = document.getElementById('content');
+
+    // adds listeners to activate and deactivate on iframe focus
+    window.addEventListener('focus', start, false);
+    window.addEventListener('blur', stop, false);
+
+    // instanciate our Webcam
+    webcam = new Webcam();
+    content.appendChild(webcam.domElement);
+}
+
+function start(e) {
+    e.preventDefault();
+    document.body.className = 'active';
+
+    webcam.start();
+}
+
+function stop(e) {
+    e.preventDefault();
+    document.body.className = '';
+
+    webcam.stop();
+}
+
+init();
+</script>
+
+</body>
+</html>
